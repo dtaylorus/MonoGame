@@ -52,6 +52,14 @@ namespace Microsoft.Xna.Framework.Audio
             if (_systemState != SoundSystemState.Initialized)
                 throw new NoAudioHardwareException("Audio has failed to initialize. Call SoundEffect.Initialize() before sound operation to get more specific errors.");
 
+            // NOTE: SoundEffectReader returns loopLength values for sound effects that don't explicitly specify loop points,
+            // which triggers unnecessary loop point playback code in the platform.
+            // WORKAROUND: Assume there is no explicit loop point if the loop starts at 0.
+            if (loopStart == 0)
+            {
+                loopLength = 0;
+            }
+
             _duration = TimeSpan.FromMilliseconds(durationMs);
 
             // Peek at the format... handle regular PCM data.
