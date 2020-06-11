@@ -56,6 +56,9 @@ namespace Microsoft.Xna.Framework.Audio
                 ALHelper.CheckError("Failed to fill buffer.");
             }
 
+            AL.BufferData(openALDataBuffer, openALFormat, dataBuffer, size, sampleRate);
+            ALHelper.CheckError("Failed to fill buffer.");
+
             bool formatLoopEnabled = true;
 
             /* Formats that OpenAL Soft currently doesn't support loop points for:
@@ -80,9 +83,6 @@ namespace Microsoft.Xna.Framework.Audio
                 AL.Bufferiv(openALDataBuffer, ALBufferi.LoopSoftPointsExt, loopData);
                 ALHelper.CheckError("Failed to set loop points.");
             }
-
-            AL.BufferData(openALDataBuffer, openALFormat, dataBuffer, size, sampleRate);
-            ALHelper.CheckError("Failed to fill buffer.");
 
             int bits, channels;
             Duration = -1;
