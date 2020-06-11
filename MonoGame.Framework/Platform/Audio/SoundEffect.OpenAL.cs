@@ -58,7 +58,7 @@ namespace Microsoft.Xna.Framework.Audio
 
             // bind buffer
             SoundBuffer = new OALSoundBuffer();
-            SoundBuffer.BindDataBuffer(buffer, format, count, sampleRate, loopStart, loopLength);
+            SoundBuffer.BindDataBuffer(buffer, format, count, sampleRate, 0, loopStart, loopLength);
         }
 
         private void PlatformInitializeIeeeFloat(byte[] buffer, int offset, int count, int sampleRate, AudioChannels channels, int loopStart, int loopLength)
@@ -75,7 +75,7 @@ namespace Microsoft.Xna.Framework.Audio
 
             // bind buffer
             SoundBuffer = new OALSoundBuffer();
-            SoundBuffer.BindDataBuffer(buffer, format, count, sampleRate, loopStart, loopLength);
+            SoundBuffer.BindDataBuffer(buffer, format, count, sampleRate, 0, loopStart, loopLength);
         }
 
         private void PlatformInitializeAdpcm(byte[] buffer, int offset, int count, int sampleRate, AudioChannels channels, int blockAlignment, int loopStart, int loopLength)

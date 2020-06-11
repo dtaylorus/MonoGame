@@ -70,7 +70,7 @@ namespace Microsoft.Xna.Framework.Audio
                 formatLoopEnabled = false;
             }
 
-            if (OpenALSoundController.GetInstance.SupportsLoopPoints && formatLoopEnabled && loopStart >= 0 && loopLength > 0)
+            if (OpenALSoundController.Instance.SupportsLoopPoints && formatLoopEnabled && loopStart >= 0 && loopLength > 0)
             {
                 //Loop end is loopStart + loopLength
                 int* loopData = stackalloc int[2];
