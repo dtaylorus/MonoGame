@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
-namespace MonoGame.Utilities
+namespace MonoGame.Framework.Utilities
 {
     internal class FuncLoader
     {
@@ -64,6 +64,11 @@ namespace MonoGame.Utilities
             // Try current folder (.NET Core will copy it there after publish)
             if (ret == IntPtr.Zero)
                 ret = LoadLibrary(Path.Combine(assemblyLocation, libname));
+
+            // Try alternate way of checking current folder
+            // assemblyLocation is null if we are inside macOS app bundle
+            if (ret == IntPtr.Zero)
+                ret = LoadLibrary(Path.Combine(System.AppDomain.CurrentDomain.BaseDirectory, libname));
 
             // Try loading system library
             if (ret == IntPtr.Zero)

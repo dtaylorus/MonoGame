@@ -52,6 +52,7 @@ namespace Microsoft.Xna.Framework
         volatile InternalState _internalState = InternalState.Exited_GameThread;
 
         bool androidSurfaceAvailable = false;
+        bool needToForceRecreateSurface = false;
 
         bool glSurfaceAvailable;
         bool glContextAvailable;
@@ -111,6 +112,10 @@ namespace Microsoft.Xna.Framework
                 if (_internalState == InternalState.Running_GameThread)
                 {
                     _internalState = InternalState.ForceRecreateSurface;
+                }
+                else
+                {
+                    needToForceRecreateSurface = true;
                 }
 
             }
@@ -574,6 +579,11 @@ namespace Microsoft.Xna.Framework
 
             lock (_lockObject)
             {
+                if (needToForceRecreateSurface && _internalState == InternalState.Running_GameThread)
+                {
+                    _internalState = InternalState.ForceRecreateSurface;
+                    needToForceRecreateSurface = false;
+                }
                 currentState = _internalState;
             }
 
@@ -1122,14 +1132,14 @@ namespace Microsoft.Xna.Framework
                 return true;
 
             handled = Keyboard.KeyDown(keyCode);
-#if !OUYA
+
             // we need to handle the Back key here because it doesnt work any other way
             if (keyCode == Keycode.Back)
             {
                 GamePad.Back = true;
                 handled = true;
             }
-#endif
+
             if (keyCode == Keycode.VolumeUp)
             {
                 AudioManager audioManager = (AudioManager)Context.GetSystemService(Context.AudioService);

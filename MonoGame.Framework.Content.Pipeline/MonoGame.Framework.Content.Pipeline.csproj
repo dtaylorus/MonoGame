@@ -6,12 +6,9 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <BaseOutputPath>..\Artifacts\MonoGame.Framework.Content.Pipeline</BaseOutputPath>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Description>MonoGame is an open source implementation of the Microsoft XNA 4.x Framework. The goal is to make it easy for XNA developers to create cross-platform games with extremely high code reuse.
-
-This package provides you with the content pipeline for Windows, Mac and Linux which is used to compile raw content to xnb files.</Description>
+    <Description>The Monogame Content Pipeline for Windows, Mac and Linux is used to compile raw content to xnb files.</Description>
     <PackageTags>monogame;content;content pipeline</PackageTags>
     <PackageId>MonoGame.Framework.Content.Pipeline</PackageId>
-    
     <AssemblyName>MonoGame.Framework.Content.Pipeline</AssemblyName>
     <RootNamespace>Microsoft.Xna.Framework.Content.Pipeline</RootNamespace>
     <CopyContentFiles>True</CopyContentFiles>
@@ -48,8 +45,8 @@ This package provides you with the content pipeline for Windows, Mac and Linux w
       <Link>Utilities\ContentExtensions.cs</Link>
     </Compile>
     
-    <Compile Include="..\ThirdParty\StbImageSharp\src\StbImageSharp\**\*.cs" LinkBase="Utilities\StbImageSharp" />
-    <Compile Include="..\ThirdParty\StbImageWriteSharp\src\StbImageWriteSharp\**\*.cs" LinkBase="Utilities\StbImageWriteSharp" />
+    <Compile Include="..\ThirdParty\StbImageSharp\src\**\*.cs" LinkBase="Utilities\StbImageSharp" />
+    <Compile Include="..\ThirdParty\StbImageWriteSharp\src\**\*.cs" LinkBase="Utilities\StbImageWriteSharp" />
   </ItemGroup>
 
   <ItemGroup>
@@ -223,33 +220,6 @@ This package provides you with the content pipeline for Windows, Mac and Linux w
     </Content>
   </ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="..\Switch\Tools\MonoGame.Effect.Compiler\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="..\Switch\Tools\MonoGame.Framework.Content.Pipeline\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="..\XBoxOne\Tools\MonoGame.Effect.Compiler\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="..\XBoxOne\Tools\MonoGame.Framework.Content.Pipeline\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="..\PlayStation4\Tools\MonoGame.Effect.Compiler\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="..\PlayStation4\Tools\MonoGame.Framework.Content.Pipeline\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="..\PSVita\Tools\MonoGame.Effect.Compiler\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-    <Compile Include="..\PSVita\Tools\MonoGame.Framework.Content.Pipeline\**\*.cs">
-      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
-    </Compile>
-  </ItemGroup>
-
   <PropertyGroup>
     <!-- NuGet warns if we copy assemblies but don't reference them; we suppress those warnings. -->
     <NoWarn>NU5100</NoWarn>
@@ -263,6 +233,10 @@ This package provides you with the content pipeline for Windows, Mac and Linux w
     </Content>
   </ItemGroup>
   
+  <Import Project="..\Switch\MonoGame.Framework.Content.Pipeline.targets" Condition="exists('..\Switch\MonoGame.Framework.Content.Pipeline.targets')" />
+  <Import Project="..\XBoxOne\MonoGame.Framework.Content.Pipeline.targets" Condition="exists('..\XBoxOne\MonoGame.Framework.Content.Pipeline.targets')" />
+  <Import Project="..\PlayStation4\MonoGame.Framework.Content.Pipeline.targets" Condition="exists('..\PlayStation4\MonoGame.Framework.Content.Pipeline.targets')" />
+  <Import Project="..\PSVita\MonoGame.Framework.Content.Pipeline.targets" Condition="exists('..\PSVita\MonoGame.Framework.Content.Pipeline.targets')" />
   <Import Project="..\Stadia\MonoGame.Framework.Content.Pipeline.targets" Condition="exists('..\Stadia\MonoGame.Framework.Content.Pipeline.targets')" />
 
 </Project>

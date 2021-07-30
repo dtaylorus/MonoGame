@@ -1,12 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
   <PropertyGroup>
-    <TargetFrameworks>net452;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net452;net5.0-windows</TargetFrameworks>
     <DefineConstants>WINDOWS;XNADESIGNPROVIDED;STBSHARP_INTERNAL</DefineConstants>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Description>MonoGame is an open source implementation of the Microsoft XNA 4.x Framework. The goal is to make it easy for XNA developers to create cross-platform games with extremely high code reuse.
-
-This package provides you with MonoGame Framework that uses DirectX for rendering and works on Windows.</Description>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Description>The MonoGame runtime for Windows using DirectX API's.</Description>
     <PackageTags>monogame;.net core;core;.net standard;standard;windowsdx</PackageTags>
     <PackageId>MonoGame.Framework.WindowsDX</PackageId>
   </PropertyGroup>
@@ -16,13 +15,16 @@ This package provides you with MonoGame Framework that uses DirectX for renderin
     <Compile Remove="obj\**\*" />
     <Compile Remove="Platform\**\*" />
     <Compile Remove="Properties\**\*" />
+    <Compile Remove="Utilities\System.Numerics.Vectors\**\*" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Platform\**\*" />
+    <None Remove="Utilities\System.Numerics.Vectors\**\*" />
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Include="Platform\Audio\Xact\WaveBank.Default.cs" />
     <Compile Include="Platform\GamePlatform.Desktop.cs" />
     <Compile Include="Platform\Graphics\SwapChainRenderTarget.cs" />
     <Compile Include="Platform\Graphics\Texture2D.StbSharp.cs" />
@@ -55,8 +57,8 @@ This package provides you with MonoGame Framework that uses DirectX for renderin
   </ItemGroup> 
 
   <ItemGroup>
-    <Compile Include="..\ThirdParty\StbImageSharp\src\StbImageSharp\**\*.cs" LinkBase="Utilities\StbImageSharp" />
-    <Compile Include="..\ThirdParty\StbImageWriteSharp\src\StbImageWriteSharp\**\*.cs" LinkBase="Utilities\StbImageWriteSharp"/>
+    <Compile Include="..\ThirdParty\StbImageSharp\src\**\*.cs" LinkBase="Utilities\StbImageSharp" />
+    <Compile Include="..\ThirdParty\StbImageWriteSharp\src\**\*.cs" LinkBase="Utilities\StbImageWriteSharp" />
   </ItemGroup>
 
   <ItemGroup>
@@ -68,6 +70,10 @@ This package provides you with MonoGame Framework that uses DirectX for renderin
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Version="4.0.1" Include="SharpDX" />
     <PackageReference Version="4.0.1" Include="SharpDX.Direct2D1" />
     <PackageReference Version="4.0.1" Include="SharpDX.Direct3D11" />
@@ -75,6 +81,10 @@ This package provides you with MonoGame Framework that uses DirectX for renderin
     <PackageReference Version="4.0.1" Include="SharpDX.MediaFoundation" />
     <PackageReference Version="4.0.1" Include="SharpDX.XAudio2" />
     <PackageReference Version="4.0.1" Include="SharpDX.XInput" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <PackageReference Include="System.Numerics.Vectors" Version="4.5.0" />
   </ItemGroup>
 
   <Import Project="Platform\DirectX.targets" />

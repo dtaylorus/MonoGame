@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Globalization;
-using MonoGame.Utilities;
+using MonoGame.Framework.Utilities;
 using System.Runtime.InteropServices;
 
 
@@ -1435,6 +1435,8 @@ namespace Microsoft.Xna.Framework.Graphics
                     return primitiveCount * 3;
                 case PrimitiveType.TriangleStrip:
                     return primitiveCount + 2;
+                case PrimitiveType.PointList:
+                    return primitiveCount;
             }
 
             throw new NotSupportedException();
