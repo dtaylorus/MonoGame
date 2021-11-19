@@ -115,7 +115,7 @@ namespace Microsoft.Xna.Framework.Audio
         /// </summary>
         public static void Initialize()
         {
-            if (_systemState != SoundSystemState.NotInitialized)
+            if (_systemState == SoundSystemState.Initialized)
                 return;
 
             try
