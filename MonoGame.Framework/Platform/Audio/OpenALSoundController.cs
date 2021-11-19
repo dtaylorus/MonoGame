@@ -112,10 +112,7 @@ namespace Microsoft.Xna.Framework.Audio
             if (AL.NativeLibrary == IntPtr.Zero)
                 throw new DllNotFoundException("Couldn't initialize OpenAL because the native binaries couldn't be found.");
 
-            if (!OpenSoundController())
-            {
-                throw new NoAudioHardwareException("OpenAL device could not be initialized, see console output for details.");
-            }
+            OpenSoundController();
 
             if (Alc.IsExtensionPresent(_device, "ALC_EXT_CAPTURE"))
                 Microphone.PopulateCaptureDevices();
@@ -145,23 +142,16 @@ namespace Microsoft.Xna.Framework.Audio
         /// music that was running prior to the game start. If any error occurs, then
         /// the state of the controller is reset.
         /// </summary>
-        /// <returns>True if the sound controller was setup, and false if not.</returns>
-        private bool OpenSoundController()
+        private void OpenSoundController()
         {
-            try
-            {
-                _device = Alc.OpenDevice(string.Empty);
-                EffectsExtension.device = _device;
-            }
-            catch (Exception ex)
-            {
-                throw new NoAudioHardwareException("OpenAL device could not be initialized.", ex);
-            }
+            _device = Alc.OpenDevice(string.Empty);
 
             AlcHelper.CheckError("Could not open OpenAL device");
 
             if (_device != IntPtr.Zero)
             {
+                EffectsExtension.device = _device;
+
 #if ANDROID
                 // Attach activity event handlers so we can pause and resume all playing sounds
                 MonoGameAndroidGameView.OnPauseGameThread += Activity_Paused;
@@ -282,10 +272,16 @@ namespace Microsoft.Xna.Framework.Audio
                     SupportsEfx = AL.IsExtensionPresent("AL_EXT_EFX");
                     SupportsIeee = AL.IsExtensionPresent("AL_EXT_float32");
                     SupportsLoopPoints = AL.IsExtensionPresent("AL_SOFT_loop_points");
-                    return true;
+                }
+                else
+                {
+                    throw new NoAudioHardwareException("Could not create OpenAL context (" + Alc.GetError() + ")");
                 }
             }
-            return false;
+            else
+            {
+                throw new NoAudioHardwareException("OpenAL device could not be initialized (" + Alc.GetError() + ")");
+            }
         }
 
         public static void EnsureInitialized()
