@@ -12,6 +12,14 @@
     <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>CS0618;CS1574;1701;1702;CS3021</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>CS0618;CS1574;1701;1702;CS3021</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Numerics" />
