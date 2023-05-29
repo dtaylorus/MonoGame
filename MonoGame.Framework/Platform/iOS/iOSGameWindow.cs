@@ -138,7 +138,15 @@ namespace Microsoft.Xna.Framework {
                 #if TVOS
                 return DisplayOrientation.LandscapeLeft;
                 #else
-				return OrientationConverter.ToDisplayOrientation(_viewController.InterfaceOrientation);
+                var bounds = _viewController.View.Bounds;
+                if (bounds.Width > bounds.Height)
+                {
+                    return DisplayOrientation.LandscapeLeft;
+                }
+                else
+                {
+                    return DisplayOrientation.Portrait;
+                }
                 #endif
 			}
 		}
