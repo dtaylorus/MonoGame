@@ -10,6 +10,15 @@
     <PackageTags>monogame;.net core;core;.net standard;standard;android</PackageTags>
     <PackageId>MonoGame.Framework.Android</PackageId>
     <AppendTargetFrameworkToOutputPath>False</AppendTargetFrameworkToOutputPath>
+    <SupportedOSPlatformVersion>21.0</SupportedOSPlatformVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <NoWarn>CS0618;CS1574;1701;1702;CS3021</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <NoWarn>CS0618;CS1574;1701;1702;CS3021</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
@@ -70,8 +79,8 @@
     <Compile Include="Platform\Utilities\InteropHelpers.cs" />
     <Compile Include="Platform\Utilities\ReflectionHelpers.Default.cs" />
     
-    <Compile Include="..\ThirdParty\StbImageSharp\src\**\*.cs" LinkBase="Utilities\StbImageSharp"/>
-    <Compile Include="..\ThirdParty\StbImageWriteSharp\src\**\*.cs" LinkBase="Utilities\StbImageWriteSharp"/>
+    <Compile Include="..\ThirdParty\StbImageSharp\src\**\*.cs" LinkBase="Utilities\StbImageSharp" />
+    <Compile Include="..\ThirdParty\StbImageWriteSharp\src\**\*.cs" LinkBase="Utilities\StbImageWriteSharp" />
   </ItemGroup>
 
   <ItemGroup>
